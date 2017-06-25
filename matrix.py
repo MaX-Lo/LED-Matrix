@@ -21,6 +21,7 @@ class Matrix:
         self.number = Number(self)
         self.effect = Effects(self)
 
+
     def set(self, x, y, color):
         if y % 2 == 0:
             pixel_num = 15 * y + x
