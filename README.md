@@ -3,7 +3,7 @@
 This repo hosts Code to run our LED Matrix. If you don't know this you will probably not need this code at the moment. In future updates a detailed documentation will be added to make it useable for everyone. Hope it doesn't take too long. : )
 
 #### Short video:
-[![Example video showing time](https://img.youtube.com/vi/AUEFyxiVq1U/0.jpg)](https://www.youtube.com/watch?v=YOUTUBE_VIDEO_ID_HERE)
+[![Example video showing time](https://img.youtube.com/vi/AUEFyxiVq1U/0.jpg)](https://youtu.be/AUEFyxiVq1U)
 # What you need?
 - LED Matrix with rgb LED's that are individual adressable (TODO more details about that)
 - Raspberry PI to control LED's color
@@ -11,7 +11,7 @@ This repo hosts Code to run our LED Matrix. If you don't know this you will prob
     - Adafruit ws2801 library (makes communication with the LED's a lot easier)
     - python 2.7.x (ws2801 library doesn't run on 3.x yet)
 
-TODO: add detailed description of requirement
+TODO: add detailed description of requirements
 
 # Patterns
 | Filename | Description |
@@ -23,8 +23,8 @@ TODO: add detailed description of requirement
 # Classes
 ## Matrix
 Main object thats needed to change the state of the LED's. Remember to call `matrix.show()` for updating the matrix after setting pixels. Uses internal the adafruit ws2801 library.
-`Matrix()`
-| Matrix.set(x, y, color) | *set a specified pixel in the given color. Top-Left is 0, 0* |
+
+| Matrix.set(x, y, color) | set a specified pixel in the given color. Top-Left is 0, 0 |
 | -------- | ----------- |
 | x | x coordinate of the pixel |
 | y | y coordinate of the pixel |
