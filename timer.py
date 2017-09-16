@@ -1,91 +1,85 @@
 import time
 import datetime
-import RPi.GPIO as GPIO
-
-# Import the WS2801 module.
-import Adafruit_WS2801
-import Adafruit_GPIO.SPI as SPI
-
-
+ 
 # Configure the count of pixels, SPI Device and Port:
-from numbers import Number
+import colors
+from matrix import Matrix
 
-PIXEL_COUNT = 150
-SPI_PORT = 0
-SPI_DEVICE = 1
-pixels = Adafruit_WS2801.WS2801Pixels(PIXEL_COUNT, spi=SPI.SpiDev(SPI_DEVICE, SPI_PORT), gpio=GPIO)
+matrix = Matrix()
 
-RED = (255, 0, 0)
-GREEN = (0, 255, 0)
-BLUE = (0, 0, 255)
 
-number = Number(pixels)
+def draw_time():
+    # background color:
+    bg_color = (0, 255, 0)
+    # digit color:
+    digit_color = colors.WHITE
 
-def set_pixel(x, y, color):
-    if y % 2 == 0:
-        pixel_num = 15*y+x
-    else:
-        pixel_num = 15*(y+1)-x-1
-
-    r, b, g = color
-    pixels.set_pixel(pixel_num, Adafruit_WS2801.RGB_to_color(r, g, b))
-
-def draw_hour_minutes(hours, minutes):
-    first_digit = hours / 10
-    second_digit = hours % 10
-    third_digit = minutes / 10
-    fourth_digit = minutes % 10
-
-    number.draw(first_digit, 0, 2, RED)
-    number.draw(second_digit, 4, 2, RED)
-    number.draw(third_digit, 8, 2, RED)
-    number.draw(fourth_digit, 12, 2, RED)
-
-def draw_minutes_seconds(minutes, seconds):
-    first_digit = minutes / 10
-    second_digit = minutes % 10
-    third_digit = seconds / 10
-    fourth_digit = seconds % 10
-
-    number.draw(first_digit, 0, 2, RED)
-    number.draw(second_digit, 4, 2, RED)
-    number.draw(third_digit, 8, 2, RED)
-    number.draw(fourth_digit, 12, 2, RED)
-
-def timer():
-    start_sec = time.time()
+    start_time = time.time() 
 
     while True:
-        current_sec = time.time()
+        matrix.clear()
+	
+	curr_time = time.time()-start_time
+	
+	# get time in minutes and hours
+        minutes = int(round(curr_time)/60.0)%(60)
+        hours = int(round(curr_time)/3600.0)%24
+        sec = int(round(curr_time)/1.0)%60
+        micro_sec = int(round(curr_time)/1.0)%1
+	
+        draw_seconds(bg_color, sec, micro_sec)
+	
+        # set two pixels between hour and minute digits
+        matrix.set(7, 9, digit_color)
+        matrix.set(7, 0, digit_color)
 
-        seconds = int(current_sec - start_sec) % 60
-        minutes = (int(current_sec - start_sec) / 60) % 60
-        hours = ((int(current_sec - start_sec) / 60) / 60) % 24
+        # convert time into 4 digits
+        first_digit = hours / 10
+        second_digit = hours % 10
+        third_digit = minutes / 10
+        fourth_digit = minutes % 10
 
-        print hours, " ", minutes, " ", seconds
+        matrix.number.draw(first_digit, 0, 2, digit_color)
+        matrix.number.draw(second_digit, 4, 2, digit_color)
+        matrix.number.draw(third_digit, 8, 2, digit_color)
+        matrix.number.draw(fourth_digit, 12, 2, digit_color)
 
-        pixels.clear()
+        matrix.show()
 
-        current = seconds % 9
-        set_pixel(7, 9 - current, RED)
-        set_pixel(7, current, BLUE)
+        time.sleep(0.1)
 
-        if hours > 0:
-            draw_hour_minutes(hours, minutes)
-        else:
-            draw_minutes_seconds(minutes, seconds)
 
-        pixels.show()
-        time.sleep(0.5)
+def draw_seconds(color, sec, micro_sec):
+    color_r, color_g, color_b = color
+
+    # fading after full minute is over
+    if sec < 1:
+        factor = (micro_sec + ((sec % 1) * 1000000))
+        brightness_r = color_r - int(factor * color_r / 1000000)
+        brightness_g = color_g - int(factor * color_g / 1000000)
+        brightness_b = color_b - int(factor * color_b / 1000000)
+        for i in range(1, 15):
+            for j in range(8, 10):
+                matrix.set(i, j, (brightness_r, brightness_g, brightness_b))
+
+    # draw seconds progress in the background
+    rows = sec / 4
+    factor = micro_sec + ((sec % 4) * 1000000)
+    brightness_r = int(factor * color_r / 4000000)
+    brightness_g = int(factor * color_g / 4000000)
+    brightness_b = int(factor * color_b / 4000000)
+    for i in range(rows):
+        for j in range(8, 10):
+            matrix.set(i, j, (color_r, color_g, color_b))
+    for j in range(8, 10):
+        matrix.set(rows, j, (brightness_r, brightness_g, brightness_b))
+
 
 if __name__ == "__main__":
-    pixels.clear()
-    pixels.show()
+    matrix.clear()
+    matrix.show()
 
-    timer()
+    draw_time()
 
-    pixels.show()
-    time.sleep(5)
-
-    pixels.clear()
-    pixels.show()
+    matrix.clear()
+    matrix.show()

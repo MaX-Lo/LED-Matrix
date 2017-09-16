@@ -5,7 +5,7 @@ from matrix import Matrix
 
 def main():
     matrix = Matrix()
-    image = Image.open('smiley.gif')
+    image = Image.open('/home/pi/Matrix/smiley.gif')
     rgb_im = image.convert('RGB')
 
     matrix.clear()
