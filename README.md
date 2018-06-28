@@ -1,24 +1,22 @@
 # LED - Matrix
 
-This repo hosts Code to run our LED Matrix. If you don't know this you will probably not need this code at the moment. In future updates a detailed documentation will be added to make it useable for everyone. Hope it doesn't take too long. : )
+This repo hosts Code to run my LED Matrix. Right now this documentation may lack some details to fully understand the project. Should you feel the urge to build a LED Matrix yourself and have questions or you want to skip the foolish beginner faults I did, feel free to contact me. :)
 
 #### Short video:
 [![Example video showing time](https://img.youtube.com/vi/AUEFyxiVq1U/0.jpg)](https://youtu.be/AUEFyxiVq1U)
-# What you need?
-- LED Matrix with rgb LED's that are individual adressable (TODO more details about that)
+# What you will need
+- LED Matrix with rgb LED's that are individualy addressable (I took a LED stripe with LED's each controlled by a ws2801)
 - Raspberry PI to control LED's color
-    - Apache Webserver running on the pi (remote control for the matrix over a website)
-    - Adafruit ws2801 library (makes communication with the LED's a lot easier)
-    - python 2.7.x (ws2801 library doesn't run on 3.x yet)
-
-TODO: add detailed description of requirements
+    - Apache Webserver running on the pi (allows remote controling the matrix over a website)
+    - Adafruit ws2801 library (communication with the LED's gets a lot easier with it)
+    - python 2.7.x (ws2801 library doesn't run on Python3 yet)
 
 # Patterns
 | Filename | Description |
 | -------- | ----------- |
 | clock.py | shows the current time in 24:00 format with background displaying seconds
 | testing_effects.py | rapidly changing pattern for guarenteed eye cancer
-| timer.py | wow, who would expect that - a timer
+| timer.py | a simple timer
 
 # Classes
 ## Matrix
@@ -44,7 +42,7 @@ Main object thats needed to change the state of the LED's. Remember to call `mat
 ## Number
 | Number() |
 | - |
-TODO: Update, number needs a different structure and shouldn't be a part of the Matrix class
+TODO: Update: in future, number needs a different structure and shouldn't be a part of the Matrix class
 
 ## GIFPlayer
 A simple way to display gif images with multiple frames on the LED Matrix. You can either create an instance of a GIFPlayer and use that or for simply playing a certaing gif file:
