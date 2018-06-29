@@ -6,8 +6,17 @@ import sys
 from matrix import Matrix
 
 '''
-modified
-source: https://gist.github.com/BigglesZX/4016539
+by MaX-Lo 28.06.2018
+
+GIF-Player helper for easy displaying GIFs
+
+possible arguments:
+gif_file (mandatory) - the GIF file to display 
+fps (optional) - frames per seconds for multi frame GIFs, default=1
+repetitions (optional) - how often to repeat the GIF before finishing the script, default=1
+
+
+contains modified version of https://gist.github.com/BigglesZX/4016539
 '''
 
 
@@ -23,25 +32,25 @@ class GIFPlayer:
         self.last_frame = self.img.convert('RGBA')
 
     def set_fps(self, fps):
+        """
+        set frames per second to play the provided gif at
+        :param fps: new fps
+        """
         self.fps = fps*1.0
 
     def play(self):
         try:
-
             while True:
-                '''
-                If the GIF uses local colour tables, each frame will have its own palette.
-                If not, we need to apply the global palette to the new frame.
-                '''
+                # if the GIF uses local color tables, each frame will have its own palette.
+                # if not, we need to apply the global palette to the new frame.
                 if not self.img.getpalette():
                     self.img.putpalette(self.color_palette)
 
                 new_frame = Image.new('RGBA', self.img.size)
 
-                '''
-                Is this file a "partial"-mode GIF where frames update a region of a different size to the entire image?
-                If so, we need to construct the new frame by pasting it on top of the preceding frames.
-                '''
+
+                # is this file a "partial"-mode GIF where frames update a region of a different size to the entire image?
+                # if so, we need to construct the new frame by pasting it on top of the preceding frames.
                 if self.mode == 'partial':
                     new_frame.paste(self.last_frame)
 
@@ -61,6 +70,7 @@ class GIFPlayer:
                 time.sleep(1/self.fps)
         except EOFError:
             self.reset()
+            # ToDo remove or modify to give the chance for displaying the last frame even after the script finished
             self.matrix.clear()
             self.matrix.show()
 
@@ -100,8 +110,7 @@ class GIFPlayer:
 
 def main():
     """
-    executing gifplayer.py with a gif file as parameter shows
-    that image
+    evaluate given params to play the provided GIF accordingly
     
     params: gif_file, fps, repetitions
     """
@@ -120,6 +129,7 @@ def main():
     gifplayer.set_fps(fps)
     for i in range(repetitions):
         gifplayer.play()
+
 
 if __name__ == '__main__':
     main()

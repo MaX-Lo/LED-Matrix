@@ -3,6 +3,12 @@ from time import sleep
  
 from matrix import Matrix
 
+'''
+by MaX-Lo 28.06.2018
+
+pulsating circle spreading from center back and forth while changing its color slowly
+'''
+
 
 def main():
     matrix = Matrix()
@@ -51,15 +57,15 @@ def main():
 def change_color(color_step, r, g, b):
     rs, gs, bs = color_step
 
-    if (rs < 31):
+    if rs < 31:
         r -= 4
         g += 4
         rs += 4
-    elif (gs < 31):
+    elif gs < 31:
         g -= 4
         b += 4
         gs += 4
-    elif (bs < 31):
+    elif bs < 31:
         b -= 4
         r += 4
         bs += 4
@@ -73,9 +79,7 @@ def change_color(color_step, r, g, b):
     g = 0 if g < 0 else g
     b = 0 if b < 0 else b
 
-    return (r, g, b, (rs, gs, bs))
-
-
+    return r, g, b, (rs, gs, bs)
 
 
 if __name__ == "__main__":

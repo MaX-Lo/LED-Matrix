@@ -1,28 +1,43 @@
+"""
+by MaX-Lo 29.06.2018
+
+Helper class for drawing digits at a 3 (width) by 5 (height) size.
+"""
+
+
 class Number:
     def __init__(self, matrix):
         self.matrix = matrix
 
-    def draw(self, num, x, y, color):
-        assert 0 <= num <= 9, "Number must be from 0 to 9"
-        if num == 0:
+    def draw(self, digit, x, y, color):
+        """
+        draw the given digit at position x, y in color
+
+        :param digit - digit to draw, has to be in range 0..9
+        :param color - digits color as (r, g, b) color tuple
+        :param x - left coordinate of the digit
+        :param y - top coordinate of the digit
+        """
+        assert 0 <= digit <= 9, "Digit has to be in range 0..9"
+        if digit == 0:
             self.zero(x, y, color)
-        elif num == 1:
+        elif digit == 1:
             self.one(x, y, color)
-        elif num == 2:
+        elif digit == 2:
             self.two(x, y, color)
-        elif num == 3:
+        elif digit == 3:
             self.three(x, y, color)
-        elif num == 4:
+        elif digit == 4:
             self.four(x, y, color)
-        elif num == 5:
+        elif digit == 5:
             self.five(x, y, color)
-        elif num == 6:
+        elif digit == 6:
             self.six(x, y, color)
-        elif num == 7:
+        elif digit == 7:
             self.seven(x, y, color)
-        elif num == 8:
+        elif digit == 8:
             self.eight(x, y, color)
-        elif num == 9:
+        elif digit == 9:
             self.nine(x, y, color)
 
     def zero(self, x, y, color):
