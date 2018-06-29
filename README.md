@@ -2,6 +2,8 @@
 
 This repo hosts Code to run my LED Matrix. Right now this documentation may lack some details to fully understand the project. Should you feel the urge to build a LED Matrix yourself and have questions or you want to skip the foolish beginner faults I did, feel free to contact me. :)
 
+Update: Documentation isn't perfect but has improved. To use these scripts take a look at `matrix.py` as a start point.
+
 #### Short video:
 [![Example video showing time](https://img.youtube.com/vi/AUEFyxiVq1U/0.jpg)](https://youtu.be/AUEFyxiVq1U)
 # What you will need

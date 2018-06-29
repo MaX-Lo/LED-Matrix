@@ -2,15 +2,12 @@ from RPi import GPIO
 
 import Adafruit_WS2801
 
-from effects import Effects
-from numbers import Number
-
 """
 by MaX-Lo 29.06.2018
 
 class to interact with the matrix by providing methods to manipulate pixels color
 
-ToDo: values in __init__ must be adjusted to your specific matrix layout
+ToDo: values in __init__ must be adjusted to your specific matrix layout/specification
 
 Assumption: the Matrix consists of one LED stripe in a snake like shape
 somehow like this:
@@ -41,9 +38,6 @@ class Matrix:
         SPI_DEVICE = 1
 
         self.pixels = Adafruit_WS2801.WS2801Pixels(self.PIXEL_COUNT, spi=Adafruit_WS2801.SPI.SpiDev(SPI_DEVICE, SPI_PORT), gpio=GPIO)
-
-        # ToDo should that really be a part of matrix? Maybe better to include extra scripts/helpers as you need them.
-        self.effect = Effects(self)
 
     def set(self, x, y, color):
         """

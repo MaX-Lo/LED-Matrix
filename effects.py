@@ -13,7 +13,7 @@ class Effects:
     def random_dots(self, set_likelihood):
 
         set_a_pixel = randint(0, 100)
-        if (set_a_pixel < set_likelihood * 100):
+        if set_a_pixel < set_likelihood * 100:
             r = randint(0, 255)
             g = randint(0, 255)
             b = randint(0, 255)

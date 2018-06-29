@@ -3,9 +3,8 @@ from random import random, randint
 
 from matrix import Matrix
 
-matrix = Matrix()
 
-def draw_time():
+def draw_time(matrix : Matrix):
 
     green_1 = (0, 255, 0)
     green_2 = (0, 200, 0)
@@ -46,11 +45,14 @@ def draw_time():
 
         time.sleep(0.1)
 
+
 if __name__ == "__main__":
+    matrix = Matrix()
+
     matrix.clear()
     matrix.show()
 
-    draw_time()
+    draw_time(matrix)
 
     matrix.clear()
     matrix.show()
